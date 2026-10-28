@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="SkyCast weather dashboard with current weather and forecasts.">
+  <title>SkyCast - Weather Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"
+    defer>
+  </script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="SkyCast home">
+        <span class="brand-icon" aria-hidden="true">&#9728;</span>
+        <span>SkyCast</span>
+      </a>
+
+      <div class="header-actions">
+        <button id="unitToggle" class="secondary-btn" type="button">
+          °C / °F
+        </button>
+        <button id="locationBtn" class="secondary-btn" type="button">
+          My Location
+        </button>
+        <button id="refreshBtn" class="icon-btn" type="button"
+          aria-label="Refresh weather" title="Refresh weather">
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">YOUR WEATHER, AT A GLANCE</p>
+          <h1>Weather Dashboard</h1>
+          <p class="muted">Check current conditions and upcoming forecasts.</p>
+        </div>
+
+        <form id="searchForm" class="search-form">
+          <label class="sr-only" for="cityInput">Search city in India</label>
+          <input id="cityInput" type="search"
+            placeholder="Search city in India..."
+            autocomplete="off" maxlength="80" required>
+          <button id="searchBtn" type="submit">Search</button>
+        </form>
+      </section>
+
+      <p id="statusMessage" class="status-message"
+        role="status" aria-live="polite">Loading weather...</p>
+
+      <section class="current-card panel">
+        <div class="current-main">
+          <div>
+            <p class="eyebrow">CURRENT WEATHER</p>
+            <h2 id="currentHeading">Bengaluru, India</h2>
+            <p id="currentDate" class="muted">Loading...</p>
+            <p id="weatherDescription" class="weather-description">Loading...</p>
+          </div>
+
+          <div class="current-temperature">
+            <span id="weatherIcon" class="weather-icon" aria-hidden="true">&#9728;</span>
+            <span id="currentTemp" class="temperature">--°C</span>
+          </div>
+        </div>
+
+        <div class="current-details">
+          <div>
+            <span class="detail-label">Feels like</span>
+            <strong id="feelsLike">--</strong>
+          </div>
+          <div>
+            <span class="detail-label">High / Low</span>
+            <strong id="highLow">-- / --</strong>
+          </div>
+          <div>
+            <span class="detail-label">Sunrise</span>
+            <strong id="sunrise">--:--</strong>
+          </div>
+          <div>
+            <span class="detail-label">Sunset</span>
+            <strong id="sunset">--:--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-grid" aria-label="Weather details">
+        <article class="metric-card panel">
+          <span class="metric-icon" aria-hidden="true">&#128167;</span>
+          <p class="metric-title">Humidity</p>
+          <strong id="humidity" class="metric-value">--%</strong>
+          <p class="metric-note">Relative humidity</p>
+        </article>
+
+        <article class="metric-card panel">
+          <span class="metric-icon" aria-hidden="true">&#128168;</span>
+          <p class="metric-title">Wind speed</p>
+          <strong id="windSpeed" class="metric-value">-- km/h</strong>
+          <p class="metric-note">Current wind</p>
+        </article>
+
+        <article class="metric-card panel">
+          <span class="metric-icon" aria-hidden="true">&#9730;</span>
+          <p class="metric-title">Precipitation</p>
+          <strong id="precipitation" class="metric-value">-- mm</strong>
+          <p class="metric-note">Current precipitation</p>
+        </article>
+
+        <article class="metric-card panel">
+          <span class="metric-icon" aria-hidden="true">&#9728;</span>
+          <p class="metric-title">UV index</p>
+          <strong id="uvIndex" class="metric-value">--</strong>
+          <p id="uvLabel" class="metric-note">Waiting for data</p>
+        </article>
+      </section>
+
+      <section class="panel forecast-panel">
+        <div class="section-heading">
+          <h2>Hourly Forecast</h2>
+          <p class="muted">Temperature over the next 24 hours</p>
+        </div>
+        <div id="hourlyForecast" class="hourly-list">
+          <p class="muted">Loading hourly forecast...</p>
+        </div>
+      </section>
+
+      <section class="panel forecast-panel">
+        <div class="section-heading">
+          <h2>7-Day Forecast</h2>
+          <p class="muted">A look at the coming week</p>
+        </div>
+        <div id="dailyForecast" class="daily-list">
+          <p class="muted">Loading daily forecast...</p>
+        </div>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="section-heading">
+          <h2>Temperature Trend</h2>
+          <p class="muted">Hourly temperature changes</p>
+        </div>
+
+        <p id="chartError" class="error-text" hidden>
+          The chart is unavailable. Weather details may still work.
+        </p>
+        <div class="chart-container">
+          <canvas id="temperatureChart"
+            role="img" aria-label="Hourly temperature forecast chart">
+          </canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        SkyCast &bull; Weather data by
+        <a href="https://open-meteo.com/" target="_blank"
+          rel="noopener noreferrer">Open-Meteo</a>
+      </p>
+      <p>Forecasts are estimates and for informational purposes only.</p>
+    </footer>
+  </div>
+</body>
+</html>
